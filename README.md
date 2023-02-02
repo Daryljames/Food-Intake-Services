@@ -2,16 +2,16 @@
 
 ## Commands for Testing (via curl)
 
-### Fetching all Expense Items
+### Fetching all Food Item
 
 ```
-curl http://localhost:5040/expense_items | jq
+curl http://localhost:5128/food_items | jq
 ```
 
 ### Saving a New Expense Item from file `payloads/expenseItem.json`
 
 ```
-curl -X POST -H "Content-Type: application/json" -d @payloads/expenseItem.json http://localhost:5040/expense_items | jq
+curl -X POST -H "Content-Type: application/json" -d @payloads/foodItem.json http://localhost:5128/food_items | jq
 ```
 
 ### Deleting an item
