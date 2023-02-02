@@ -5,6 +5,7 @@ using FoodIntakeServices.Models;
 public class ApplicationContext
 {
     public List<FoodItem> foodItems;
+    // List for all
 
     private static ApplicationContext instance = null;
 
