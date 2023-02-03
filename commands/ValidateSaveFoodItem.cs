@@ -46,6 +46,15 @@ public class ValidateSaveFoodItem
         {
             Errors["name"].Add("name is required");
         }
+        else
+        {
+            string name = payload["name"].ToString();
+
+            if (name.Length > 255)
+            {
+                Errors["name"].Add("Name should only be less than 255 characters");
+            }
+        }
 
         if (!payload.ContainsKey("calorie"))
         {
