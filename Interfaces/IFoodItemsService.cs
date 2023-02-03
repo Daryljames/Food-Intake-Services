@@ -10,5 +10,5 @@ public interface IFoodItemsService
 
     public FoodItem GetById(int id);
 
-    public void Delete(int id);
+    public FoodItem Delete(int id);
 }

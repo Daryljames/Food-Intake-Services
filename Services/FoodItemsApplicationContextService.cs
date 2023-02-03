@@ -23,9 +23,10 @@ public class FoodItemsApplicationContextService : IFoodItemsService
         return food;
     }
 
-    public void Delete(int id)
+    public FoodItem Delete(int id)
     {
         FoodItem food = ApplicationContext.Instance.foodItems.FirstOrDefault(i => i.Id == id);
         ApplicationContext.Instance.foodItems.Remove(food);
+        return food;
     }
 }

@@ -30,7 +30,17 @@ public class FoodItemController : ControllerBase
     public IActionResult Show(int id)
     {
         FoodItem food = _foodItemsService.GetById(id);
-        return Ok(food);
+        if (food == null)
+        {
+            Dictionary<string, object> message = new Dictionary<string, object>();
+            message.Add("message", "No food found");
+            return Ok(message);
+        }
+        else
+        {
+            return Ok(food);
+        }
+
     }
 
     [HttpPost("")]
@@ -50,8 +60,17 @@ public class FoodItemController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        _foodItemsService.Delete(id);
+        FoodItem food = _foodItemsService.Delete(id);
+        if (food == null)
+        {
+            Dictionary<string, object> message = new Dictionary<string, object>();
+            message.Add("message", "No food found");
+            return Ok(message);
+        }
+        else
+        {
+            return Ok("Deleted");
 
-        return Ok("Deleted");
+        }
     }
 }
