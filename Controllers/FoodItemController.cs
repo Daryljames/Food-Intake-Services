@@ -78,8 +78,8 @@ public class FoodItemController : ControllerBase
         if (food == null)
         {
             Dictionary<string, object> message = new Dictionary<string, object>();
-            message.Add("message", "No food found");
-            return Ok(message);
+            message.Add("message", "No food found with id " + id);
+            return UnprocessableEntity(message);
         }
         else
         {
