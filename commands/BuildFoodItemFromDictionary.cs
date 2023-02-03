@@ -18,7 +18,12 @@ namespace FoodIntakeServices.Commands
         {
             FoodItem foodItem = new FoodItem();
 
-            foodItem.Id = (int)this.data["id"];
+            if (data.ContainsKey("id"))
+            {
+                foodItem.Id = (int)this.data["id"];
+            }
+
+
             foodItem.Name = (string)this.data["name"];
             foodItem.Calorie = (int)this.data["calorie"];
 

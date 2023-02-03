@@ -47,14 +47,28 @@ public class FoodItemController : ControllerBase
     public IActionResult Save([FromBody] object payload)
     {
         Dictionary<string, object> hash = JsonSerializer.Deserialize<Dictionary<string, object>>(payload.ToString());
-        var cmd = new BuildFoodItemFromDictionary(hash);
 
-        FoodItem foodItem = cmd.Execute();
-        _foodItemsService.Save(foodItem);
+        ValidateSaveFoodItem validator = new ValidateSaveFoodItem(hash);
+        validator.Execute();
 
-        Dictionary<string, object> message = new Dictionary<string, object>();
-        message.Add("message", "Ok");
-        return Ok(message);
+        if (validator.HasErrors())
+        {
+            return UnprocessableEntity(validator.Errors);
+        }
+        else
+        {
+            BuildFoodItemFromDictionary cmd = new BuildFoodItemFromDictionary(hash);
+
+            FoodItem foodItem = cmd.Execute();
+            _foodItemsService.Save(foodItem);
+
+            Dictionary<string, object> message = new Dictionary<string, object>();
+            message.Add("message", "Ok");
+            return Ok(message);
+        }
+
+
+
     }
 
     [HttpDelete("{id}")]
@@ -69,8 +83,9 @@ public class FoodItemController : ControllerBase
         }
         else
         {
-            return Ok("Deleted");
-
+            Dictionary<string, object> message = new Dictionary<string, object>();
+            message.Add("message", "Deleted");
+            return Ok(message);
         }
     }
 }
