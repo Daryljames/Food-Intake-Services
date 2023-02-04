@@ -1,7 +1,11 @@
+using System;
+using System.Text.RegularExpressions;
+
 namespace FoodIntakeServices.Commands;
 
 public class ValidateSaveFoodItem
 {
+    Regex rxCalorie = new Regex(@"\b^([0-9]+|([0-9]*\.[0-9][0-9]))$\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Dictionary<string, object> payload;
 
     public Dictionary<string, List<string>> Errors { get; private set; }
@@ -60,11 +64,29 @@ public class ValidateSaveFoodItem
         {
             Errors["calorie"].Add("calorie is required");
         }
+        else if (payload.ContainsKey("calorie"))
+        {
+
+            try
+            {
+                bool matches = rxCalorie.IsMatch((payload["calorie"].ToString()));
+
+                if (!matches)
+                {
+                    Errors["calorie"].Add("Calorie should only have 2 decimal places");
+                }
+            }
+            catch (FormatException e)
+            {
+                Errors["calorie"].Add("Invalid format for calorie " + payload["calorie"].ToString());
+            }
+
+        }
         else
         {
             try
             {
-                int calorie = int.Parse(payload["calorie"].ToString());
+                float calorie = float.Parse(payload["calorie"].ToString());
 
                 if (calorie < 0)
                 {

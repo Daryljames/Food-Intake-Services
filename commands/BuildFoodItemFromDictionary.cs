@@ -10,8 +10,6 @@ namespace FoodIntakeServices.Commands
         public BuildFoodItemFromDictionary(Dictionary<string, object> data)
         {
             this.data = data;
-
-            this.CleanUp();
         }
 
         public FoodItem Execute()
@@ -20,30 +18,22 @@ namespace FoodIntakeServices.Commands
 
             if (data.ContainsKey("id"))
             {
-                foodItem.Id = (int)this.data["id"];
+                foodItem.Id = int.Parse(this.data["id"].ToString());
             }
 
-
-            foodItem.Name = (string)this.data["name"];
-            foodItem.Calorie = (int)this.data["calorie"];
+            foodItem.Meal = this.data["meal"].ToString();
+            foodItem.Name = this.data["name"].ToString();
+            foodItem.Calorie = float.Parse(this.data["calorie"].ToString());
+            foodItem.Quantity = float.Parse(this.data["quantity"].ToString());
+            foodItem.Measure = this.data["measure"].ToString();
+            foodItem.DateEaten = DateOnly.Parse(this.data["dateEaten"].ToString());
+            foodItem.CreatedOn = DateTime.Parse(this.data["createdOn"].ToString());
+            foodItem.CreatedBy = this.data["createdBy"].ToString();
+            foodItem.LastUpdatedOn = DateTime.Parse(this.data["lastUpdatedOn"].ToString());
+            foodItem.LastUpdatedBy = this.data["lastUpdatedBy"].ToString();
+            foodItem.IsActive = bool.Parse(this.data["isActive"].ToString());
 
             return foodItem;
-        }
-
-        public void CleanUp()
-        {
-            if (this.data["id"] is JsonElement)
-            {
-                this.data["id"] = int.Parse(((JsonElement)this.data["id"]).ToString());
-            }
-            if (this.data["name"] is JsonElement)
-            {
-                this.data["name"] = ((JsonElement)this.data["name"]).ToString();
-            }
-            if (this.data["calorie"] is JsonElement)
-            {
-                this.data["calorie"] = int.Parse(((JsonElement)this.data["calorie"]).ToString());
-            }
         }
     }
 }

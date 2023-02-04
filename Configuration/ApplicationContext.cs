@@ -24,8 +24,36 @@ public class ApplicationContext
     public ApplicationContext()
     {
         this.foodItems = new List<FoodItem>();
-        FoodItem foodItem1 = new FoodItem { Id = 1, Name = "egg", Calorie = 100 };
-        FoodItem foodItem2 = new FoodItem { Id = 2, Name = "rice", Calorie = 120 };
+        FoodItem foodItem1 = new FoodItem
+        {
+            Id = 1,
+            Meal = "breakfast",
+            Name = "egg",
+            Calorie = 120.20F,
+            Quantity = 1,
+            Measure = "small",
+            DateEaten = new DateOnly(2023, 2, 03),
+            CreatedOn = new DateTime(2023, 02, 03, 0, 0, 0),
+            CreatedBy = "user1",
+            LastUpdatedOn = new DateTime(2023, 02, 03, 0, 0, 1),
+            LastUpdatedBy = "user1",
+            IsActive = true
+        };
+        FoodItem foodItem2 = new FoodItem
+        {
+            Id = 2,
+            Meal = "breakfast",
+            Name = "rice",
+            Calorie = 120.13F,
+            Quantity = 1,
+            Measure = "cup",
+            DateEaten = new DateOnly(2023, 2, 03),
+            CreatedOn = new DateTime(2023, 02, 03, 0, 0, 0),
+            CreatedBy = "user1",
+            LastUpdatedOn = new DateTime(2023, 02, 03, 0, 0, 1),
+            LastUpdatedBy = "user1",
+            IsActive = true
+        };
 
         foodItems.Add(foodItem1);
         foodItems.Add(foodItem2);
