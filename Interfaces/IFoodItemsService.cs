@@ -11,4 +11,6 @@ public interface IFoodItemsService
     public FoodItem GetById(int id);
 
     public FoodItem Delete(int id);
+
+    public FoodItem GetByIdAndUserId(int id, int userId);
 }

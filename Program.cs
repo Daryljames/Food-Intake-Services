@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using FoodIntakeServices.Interfaces;
 using FoodIntakeServices.Services;
+using FoodIntakeServices.Data;
 
 namespace FoodIntakeServices
 {
@@ -13,11 +15,19 @@ namespace FoodIntakeServices
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MSSqlConnection"));
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<IFoodItemsService, FoodItemsApplicationContextService>();
+            builder.Services.AddScoped<IFoodItemsService, FoodItemsMSSQLService>();
+
+            builder.Services.AddScoped<IUsersService, UsersMSSQLService>();
 
             WebApplication app = builder.Build();
 

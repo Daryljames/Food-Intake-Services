@@ -1,5 +1,4 @@
 {
-  "id": 3,
   "meal": "breakfast",
   "name": "bacon",
   "calorie": 120.11,
@@ -10,5 +9,6 @@
   "createdBy": "user1",
   "lastUpdatedOn": "2023-02-03T00:00:00.000Z",
   "lastUpdatedBy": "user1",
-  "isActive": true
+  "isActive": true,
+  "user": 1
 }

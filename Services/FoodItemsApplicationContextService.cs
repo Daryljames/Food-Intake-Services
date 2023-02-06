@@ -29,4 +29,9 @@ public class FoodItemsApplicationContextService : IFoodItemsService
         ApplicationContext.Instance.foodItems.Remove(food);
         return food;
     }
+
+    public FoodItem GetByIdAndUserId(int id, int userId)
+    {
+        return ApplicationContext.Instance.foodItems.SingleOrDefault((food) => food.Id == id && food.User.Id == userId);
+    }
 }

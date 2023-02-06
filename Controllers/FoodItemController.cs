@@ -13,9 +13,12 @@ public class FoodItemController : ControllerBase
 {
     private readonly IFoodItemsService _foodItemsService;
 
-    public FoodItemController(IFoodItemsService foodItemsService)
+    private readonly IUsersService _usersService;
+
+    public FoodItemController(IFoodItemsService foodItemsService, IUsersService usersService)
     {
         _foodItemsService = foodItemsService;
+        _usersService = usersService;
     }
 
     [HttpGet("")]
@@ -57,7 +60,7 @@ public class FoodItemController : ControllerBase
         }
         else
         {
-            BuildFoodItemFromDictionary cmd = new BuildFoodItemFromDictionary(hash);
+            BuildFoodItemFromDictionary cmd = new BuildFoodItemFromDictionary(hash, _usersService);
 
             FoodItem foodItem = cmd.Execute();
             _foodItemsService.Save(foodItem);

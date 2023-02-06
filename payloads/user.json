@@ -1,0 +1,14 @@
+{
+  "firstName": "John",
+  "middleName": "Powers",
+  "lastName": "Smith",
+  "age": 20,
+  "weight": 80,
+  "weightType": "kilogram",
+  "height": 5.4,
+  "heightType": "feet",
+  "userType": "user",
+  "calorieGoal": 2000,
+  "email": "test@email.com",
+  "password": "123test"
+}
