@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using FoodIntakeServices.Interfaces;
 using FoodIntakeServices.Services;
 using FoodIntakeServices.Data;
+using System.Text.Json.Serialization;
 
 namespace FoodIntakeServices
 {
@@ -14,7 +15,11 @@ namespace FoodIntakeServices
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                options.JsonSerializerOptions.WriteIndented = true;
+            });
 
             builder.Services.AddDbContext<DataContext>(options =>
             {

@@ -15,6 +15,8 @@ namespace FoodIntakeServices.Models
         public string LastUpdatedBy { get; set; }
         public bool IsActive { get; set; }
 
+        public int UserId { get; set; }
+
         public User User { get; set; }
 
         public FoodItem()

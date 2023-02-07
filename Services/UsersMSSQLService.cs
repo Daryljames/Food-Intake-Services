@@ -9,14 +9,22 @@ using FoodIntakeServices.Data;
 public class UsersMSSQLService : IUsersService
 {
     private readonly DataContext _dataContext;
+    private readonly IFoodItemsService _foodItemsService;
 
-    public UsersMSSQLService(DataContext dataContext)
+    public UsersMSSQLService(DataContext dataContext, IFoodItemsService foodItemsService)
     {
         _dataContext = dataContext;
+        _foodItemsService = foodItemsService;
     }
     public List<User> GetAll()
     {
         return _dataContext.Users.ToList<User>();
+
+        // List<User> user = _dataContext.Users.ToList<User>();
+        // foreach(User u in user)
+        // {
+        //     u.FoodItems = _foodItemsService.GetByIdAndUserId()
+        // }
     }
 
     public User GetById(int id)

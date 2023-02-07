@@ -23,7 +23,13 @@ public class FoodItemsMSSQLService : IFoodItemsService
 
     public List<FoodItem> GetAll()
     {
-        return _dataContext.FoodItems.ToList<FoodItem>();
+        // return _dataContext.FoodItems.ToList<FoodItem>();
+        List<FoodItem> foodItem = _dataContext.FoodItems.ToList<FoodItem>();
+        foreach (FoodItem food in foodItem)
+        {
+            food.User = _userService.GetById(food.UserId);
+        }
+        return foodItem;
     }
 
     public FoodItem GetById(int id)
@@ -33,7 +39,10 @@ public class FoodItemsMSSQLService : IFoodItemsService
 
     public FoodItem GetByIdAndUserId(int id, int userId)
     {
-        return _dataContext.FoodItems.SingleOrDefault((food) => food.Id == id && food.User.Id == userId);
+        User user = _userService.GetById(userId);
+        FoodItem food = _dataContext.FoodItems.SingleOrDefault((food) => food.Id == id);
+        food.User = user;
+        return food;
     }
 
 
@@ -57,7 +66,7 @@ public class FoodItemsMSSQLService : IFoodItemsService
             temp.LastUpdatedOn = hash.LastUpdatedOn;
             temp.LastUpdatedBy = hash.LastUpdatedBy;
             temp.IsActive = hash.IsActive;
-            temp.User = hash.User;
+            temp.UserId = hash.UserId;
         }
         _dataContext.SaveChanges();
     }

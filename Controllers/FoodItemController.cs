@@ -46,6 +46,23 @@ public class FoodItemController : ControllerBase
 
     }
 
+    [HttpGet("{id}/{userId}")]
+    public IActionResult Show(int id, int userId)
+    {
+        FoodItem food = _foodItemsService.GetByIdAndUserId(id, userId);
+        if (food == null)
+        {
+            Dictionary<string, object> message = new Dictionary<string, object>();
+            message.Add("message", "No food found with id " + id + " and userId " + userId);
+            return UnprocessableEntity(message);
+        }
+        else
+        {
+            return Ok(food);
+        }
+
+    }
+
     [HttpPost("")]
     public IActionResult Save([FromBody] object payload)
     {
