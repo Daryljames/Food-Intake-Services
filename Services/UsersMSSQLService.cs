@@ -9,12 +9,12 @@ using FoodIntakeServices.Data;
 public class UsersMSSQLService : IUsersService
 {
     private readonly DataContext _dataContext;
-    private readonly IFoodItemsService _foodItemsService;
+    // private readonly IFoodItemsService _foodItemsService;
 
-    public UsersMSSQLService(DataContext dataContext, IFoodItemsService foodItemsService)
+    public UsersMSSQLService(DataContext dataContext)
     {
         _dataContext = dataContext;
-        _foodItemsService = foodItemsService;
+        // _foodItemsService = foodItemsService;
     }
     public List<User> GetAll()
     {

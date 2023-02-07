@@ -11,6 +11,15 @@ namespace FoodIntakeServices
         public static void Main(string[] args)
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+            var corsConfigName = "CORS-Config";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: corsConfigName, policy =>
+                {
+                    policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             // bootstraps the neccessary dependencies
 
             // Add services to the container.
@@ -42,6 +51,8 @@ namespace FoodIntakeServices
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(corsConfigName);
 
             app.UseHttpsRedirection();
 
