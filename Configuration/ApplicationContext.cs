@@ -37,7 +37,8 @@ public class ApplicationContext
             CreatedBy = "user1",
             LastUpdatedOn = new DateTime(2023, 02, 03, 0, 0, 1),
             LastUpdatedBy = "user1",
-            IsActive = true
+            IsActive = true,
+            IsNotEditable = false
         };
         FoodItem foodItem2 = new FoodItem
         {
@@ -52,7 +53,8 @@ public class ApplicationContext
             CreatedBy = "user1",
             LastUpdatedOn = new DateTime(2023, 02, 03, 0, 0, 1),
             LastUpdatedBy = "user1",
-            IsActive = true
+            IsActive = true,
+            IsNotEditable = false
         };
 
         foodItems.Add(foodItem1);

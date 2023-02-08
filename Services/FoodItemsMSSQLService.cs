@@ -1,3 +1,4 @@
+using System;
 namespace FoodIntakeServices.Services;
 
 using System.Collections.Generic;
@@ -18,7 +19,9 @@ public class FoodItemsMSSQLService : IFoodItemsService
     }
     public FoodItem Delete(int id)
     {
-        throw new NotImplementedException();
+        FoodItem food = _dataContext.FoodItems.FirstOrDefault(f => f.Id == id);
+        _dataContext.FoodItems.Remove(food);
+        return food;
     }
 
     public List<FoodItem> GetAll()
@@ -31,6 +34,20 @@ public class FoodItemsMSSQLService : IFoodItemsService
         }
         return foodItem;
     }
+
+    // public List<FoodItem> GetByDate(DateTime date)
+    // {
+    //     List<FoodItem> newFoodItem = new List<FoodItem>();
+    //     List<FoodItem> foodItem = _dataContext.FoodItems.ToList<FoodItem>();
+    //     foreach (FoodItem food in foodItem)
+    //     {
+    //         if (food.DateEaten.Date == date.Date)
+    //         {
+    //             newFoodItem.Add(food);
+    //         }
+    //     }
+    //     return newFoodItem;
+    // }
 
     public FoodItem GetById(int id)
     {
@@ -66,8 +83,32 @@ public class FoodItemsMSSQLService : IFoodItemsService
             temp.LastUpdatedOn = hash.LastUpdatedOn;
             temp.LastUpdatedBy = hash.LastUpdatedBy;
             temp.IsActive = hash.IsActive;
+            temp.IsNotEditable = hash.IsNotEditable;
             temp.UserId = hash.UserId;
         }
         _dataContext.SaveChanges();
     }
+
+    public void Edit(FoodItem hash, int id)
+    {
+
+        FoodItem temp = this.GetById(hash.Id);
+        temp.Meal = hash.Meal;
+        temp.Name = hash.Meal;
+        temp.Calorie = hash.Calorie;
+        temp.Quantity = hash.Quantity;
+        temp.Measure = hash.Measure;
+        temp.DateEaten = hash.DateEaten;
+        temp.CreatedOn = hash.CreatedOn;
+        temp.CreatedBy = hash.CreatedBy;
+        temp.LastUpdatedOn = hash.LastUpdatedOn;
+        temp.LastUpdatedBy = hash.LastUpdatedBy;
+        temp.IsActive = hash.IsActive;
+        temp.IsNotEditable = hash.IsNotEditable;
+        temp.UserId = hash.UserId;
+
+        _dataContext.SaveChanges();
+    }
+
+
 }

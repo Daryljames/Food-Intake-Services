@@ -40,7 +40,9 @@ namespace FoodIntakeServices.Commands
             foodItem.LastUpdatedOn = DateTime.Parse(this.data["lastUpdatedOn"].ToString());
             foodItem.LastUpdatedBy = this.data["lastUpdatedBy"].ToString();
             foodItem.IsActive = bool.Parse(this.data["isActive"].ToString());
+            foodItem.IsNotEditable = bool.Parse(this.data["isNotEditable"].ToString());
             foodItem.UserId = int.Parse(this.data["user"].ToString());
+            System.Console.WriteLine(foodItem);
 
             return foodItem;
         }

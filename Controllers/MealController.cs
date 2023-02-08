@@ -7,36 +7,36 @@ using FoodIntakeServices.Models;
 using FoodIntakeServices.Interfaces;
 
 [ApiController]
-[Route("users")]
-public class UserController : ControllerBase
+[Route("meals")]
+public class MealController : ControllerBase
 {
-    public readonly IUsersService _usersService;
+    public readonly IMealsService _mealsService;
 
-    public UserController(IUsersService usersService)
+    public MealController(IMealsService mealsService)
     {
-        _usersService = usersService;
+        _mealsService = mealsService;
     }
 
     [HttpGet("")]
     public IActionResult Index()
     {
-        List<User> user = _usersService.GetAll();
-        return Ok(user);
+        List<Meal> meal = _mealsService.GetAll();
+        return Ok(meal);
     }
 
     [HttpGet("{id}")]
     public IActionResult Show(int id)
     {
-        User user = _usersService.GetById(id);
-        if (user == null)
+        Meal meal = _mealsService.GetById(id);
+        if (meal == null)
         {
             Dictionary<string, object> message = new Dictionary<string, object>();
-            message.Add("message", "No food found with id " + id);
+            message.Add("message", "No meal found with id " + id);
             return UnprocessableEntity(message);
         }
         else
         {
-            return Ok(user);
+            return Ok(meal);
         }
     }
 
@@ -45,7 +45,7 @@ public class UserController : ControllerBase
     {
         Dictionary<string, object> hash = JsonSerializer.Deserialize<Dictionary<string, object>>(payload.ToString());
 
-        ValidateSaveUser validator = new ValidateSaveUser(hash);
+        ValidateSaveMeal validator = new ValidateSaveMeal(hash);
         validator.Execute();
 
         if (validator.HasErrors())
@@ -54,10 +54,10 @@ public class UserController : ControllerBase
         }
         else
         {
-            BuildUserFromHash cmd = new BuildUserFromHash(hash);
+            BuildMealFromHash cmd = new BuildMealFromHash(hash);
 
-            User user = cmd.Execute();
-            _usersService.Save(user);
+            Meal meal = cmd.Execute();
+            _mealsService.Save(meal);
 
             Dictionary<string, object> message = new Dictionary<string, object>();
             message.Add("message", "Ok");

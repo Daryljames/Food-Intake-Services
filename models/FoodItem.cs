@@ -14,6 +14,7 @@ namespace FoodIntakeServices.Models
         public DateTime LastUpdatedOn { get; set; }
         public string LastUpdatedBy { get; set; }
         public bool IsActive { get; set; }
+        public bool IsNotEditable { get; set; }
 
         public int UserId { get; set; }
 

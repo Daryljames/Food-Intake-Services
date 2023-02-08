@@ -34,4 +34,23 @@ public class FoodItemsApplicationContextService : IFoodItemsService
     {
         return ApplicationContext.Instance.foodItems.SingleOrDefault((food) => food.Id == id && food.User.Id == userId);
     }
+
+    public void Edit(FoodItem hash, int id)
+    {
+        ApplicationContext.Instance.foodItems.Add(hash);
+    }
+
+    // public List<FoodItem> GetByDate(DateTime date)
+    // {
+    //     List<FoodItem> newFoodItem = new List<FoodItem>();
+    //     List<FoodItem> foodItem = ApplicationContext.Instance.foodItems;
+    //     foreach (FoodItem food in foodItem)
+    //     {
+    //         if (food.DateEaten.Date == date.Date)
+    //         {
+    //             newFoodItem.Add(food);
+    //         }
+    //     }
+    //     return newFoodItem;
+    // }
 }

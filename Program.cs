@@ -43,6 +43,8 @@ namespace FoodIntakeServices
 
             builder.Services.AddScoped<IUsersService, UsersMSSQLService>();
 
+            builder.Services.AddScoped<IMealsService, MealsMSSQLService>();
+
             WebApplication app = builder.Build();
 
             // Configure the HTTP request pipeline.

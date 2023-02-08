@@ -8,6 +8,8 @@ public class DataContext : DbContext
     public DbSet<FoodItem> FoodItems { get; set; }
     public DbSet<User> Users { get; set; }
 
+    public DbSet<Meal> Meals { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<FoodItem>()
