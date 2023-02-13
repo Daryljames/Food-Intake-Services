@@ -87,6 +87,7 @@ public class FoodItemController : ControllerBase
             BuildFoodItemFromDictionary cmd = new BuildFoodItemFromDictionary(hash, _usersService);
 
             FoodItem foodItem = cmd.Execute();
+            System.Console.WriteLine(foodItem.DateEaten);
             _foodItemsService.Save(foodItem);
 
             Dictionary<string, object> message = new Dictionary<string, object>();

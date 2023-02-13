@@ -25,6 +25,7 @@ public class ValidateSaveFoodItem
         Errors.Add("quantity", new List<string>());
         Errors.Add("measure", new List<string>());
         Errors.Add("dateEaten", new List<string>());
+        Errors.Add("meal", new List<string>());
     }
 
     public bool HasErrors()
@@ -52,6 +53,10 @@ public class ValidateSaveFoodItem
         {
             ans = true;
         }
+        if (Errors["meal"].Count > 0)
+        {
+            ans = true;
+        }
 
         return ans;
     }
@@ -64,6 +69,11 @@ public class ValidateSaveFoodItem
     public void Execute()
     {
         // int id = int.Parse(payload["id"].ToString());
+        string quantity = payload["quantity"].ToString();
+        string calorie = payload["calorie"].ToString();
+        string dateEaten = payload["dateEaten"].ToString();
+        string measure = payload["measure"].ToString();
+        string meal = payload["meal"].ToString();
 
         if (!payload.ContainsKey("name"))
         {
@@ -72,6 +82,11 @@ public class ValidateSaveFoodItem
         else
         {
             string name = payload["name"].ToString();
+
+            if (name == "")
+            {
+                Errors["name"].Add("Name should not be empty");
+            }
 
             if (name.Length > 255)
             {
@@ -83,11 +98,16 @@ public class ValidateSaveFoodItem
         {
             Errors["calorie"].Add("calorie is required");
         }
+        else if (calorie == "0")
+        {
+            Errors["calorie"].Add("Calorie should not be empty");
+        }
         else
         {
             try
             {
-                bool matches = rxCalorie.IsMatch((payload["calorie"].ToString()));
+
+                bool matches = rxCalorie.IsMatch((calorie));
                 if (!matches)
                 {
                     Errors["calorie"].Add("Calorie should only have 2 decimal places");
@@ -103,6 +123,11 @@ public class ValidateSaveFoodItem
         if (!payload.ContainsKey("quantity"))
         {
             Errors["quantity"].Add("quantity is required");
+        }
+        else if (quantity == "0")
+        {
+            // string quantity = payload["quantity"].ToString();
+            Errors["quantity"].Add("Quantity should not be empty");
         }
         else
         {
@@ -124,6 +149,10 @@ public class ValidateSaveFoodItem
         {
             Errors["measure"].Add("measure is required");
         }
+        else if (measure == "")
+        {
+            Errors["measure"].Add("Measure should not be empty");
+        }
         else
         {
             try
@@ -140,9 +169,39 @@ public class ValidateSaveFoodItem
             }
         }
 
+        if (!payload.ContainsKey("meal"))
+        {
+            Errors["meal"].Add("meal is required");
+        }
+        else if (meal == "")
+        {
+            Errors["meal"].Add("Meal should not be empty");
+        }
+        else
+        {
+            try
+            {
+                bool matches = rxMeasure.IsMatch((payload["meal"].ToString()));
+                if (!matches)
+                {
+                    Errors["meal"].Add("Meal must only be one word");
+                }
+            }
+            catch (FormatException e)
+            {
+                Errors["meal"].Add("Invalid format for meal " + payload["meal"].ToString());
+            }
+        }
+
+
         if (!payload.ContainsKey("dateEaten"))
         {
             Errors["dateEaten"].Add("dateEaten is required");
+        }
+        else if (DateTime.Parse(dateEaten).Hour == DateTime.Now.Hour && DateTime.Parse(dateEaten).Minute == DateTime.Now.Minute)
+        {
+            Errors["dateEaten"].Add("Date Eaten should not be empty");
+            System.Console.WriteLine(dateEaten);
         }
     }
 }
